@@ -1,10 +1,12 @@
 # Vana Data Refiner for Finquarium Financial Data
 
-This repository is a customized version of the Vana Data Refinement template, specifically designed to process and refine output data from the Finquarium proof-of-contribution system. It transforms JSON-based financial transaction data (e.g., from Coinbase, Binance) into a normalized and queryable SQLite database, suitable for the Vana ecosystem.
+This repository is a customized version of the Vana Data Refinement template, specifically designed to process and refine output data from the Finquarium proof-of-contribution system. 
+It transforms JSON-based financial transaction data from Coinbase, Binance into a normalized and queryable SQLite database, suitable for the Vana ecosystem.
 
 ## Overview
 
-This data refiner takes a JSON file (typically `results.json` or similar, as output by a Finquarium PoC job) containing user financial data and transforms it into a structured SQLite database. The process involves:
+This data refiner takes a JSON output by a Finquarium PoC job containing user financial data and transforms it into a structured SQLite database. 
+The process involves:
 
 1.  **Input Validation**: Checking if the input JSON matches the expected financial data structure. It will skip files that appear to be survey-type data (identifiable by top-level keys like `metadata` and `expertise`).
 2.  **Parsing Input**: Reading the valid financial data JSON which contains user details, summary statistics, and a list of transactions.
@@ -28,7 +30,32 @@ For detailed column information, refer to `refiner/models/refined.py`.
 
 ## Project Structure
 
-(See Project Structure section above in the thought block)
+```
+data-refinement/
+├── input/
+│   └── results.json                # Example of a valid Finquarium input data file
+├── refiner/
+│   ├── models/
+│   │   ├── offchain_schema.py      # Pydantic model for schema definition output
+│   │   ├── output.py               # Pydantic model for the refiner's final output JSON
+│   │   ├── refined.py              # SQLAlchemy models for the refined SQLite database
+│   │   └── unrefined.py            # Pydantic models for the input Finquarium JSON data
+│   ├── transformer/
+│   │   ├── base_transformer.py       # Base class for data transformation
+│   │   └── finquarium_transformer.py # Custom transformer for Finquarium data
+│   ├── utils/
+│   │   ├── date.py                 # Date parsing utility
+│   │   ├── encrypt.py              # File encryption utility
+│   │   ├── ipfs.py                 # IPFS upload utility
+│   │   └── pii.py                  # PII masking utility
+│   ├── __init__.py
+│   ├── __main__.py                 # Main entry point for the refiner
+│   ├── config.py                   # Configuration settings for the refiner
+│   └── refine.py                   # Core refinement orchestration logic
+├── Dockerfile
+├── README.md
+└── requirements.txt
+```
 
 ## Getting Started
 
