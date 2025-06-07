@@ -10,3 +10,5 @@ __pycache__/
 
 .idea/
 .DS_Store
+
+refine_existing_data/*

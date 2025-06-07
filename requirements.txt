@@ -1,5 +1,5 @@
 pgpy
-pydantic
-pydantic_settings
+pydantic>=2.0.0
+pydantic_settings>=2.0.0
 requests
 sqlalchemy
